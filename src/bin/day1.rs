@@ -31,8 +31,11 @@ fn part1(input: &[i32]) -> Option<i32> {
 fn part2(input: &[i32]) -> Option<i32> {
     for (ix, x) in input.iter().enumerate() {
         for (iy, y) in input.iter().enumerate() {
+            if iy == ix || x + y > 2020 {
+                continue;
+            }
             for (iz, z) in input.iter().enumerate() {
-                if iy == ix || iz == ix || iz == iy {
+                if iz == ix || iz == iy {
                     continue;
                 }
                 if x + y + z == 2020 {

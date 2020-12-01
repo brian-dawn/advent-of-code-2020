@@ -1,3 +1,4 @@
+use itertools::Itertools;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
@@ -14,38 +15,20 @@ fn read_input() -> Result<Vec<i32>> {
 }
 
 fn part1(input: &[i32]) -> Option<i32> {
-    for (ix, x) in input.iter().enumerate() {
-        for (iy, y) in input.iter().enumerate() {
-            if iy == ix {
-                continue;
-            }
-            if x + y == 2020 {
-                return Some(x * y);
-            }
-        }
-    }
-
-    None
+    return input
+        .iter()
+        .cartesian_product(input)
+        .find(|(a, b)| *a + *b == 2020)
+        .map(|(a, b)| a * b);
 }
 
 fn part2(input: &[i32]) -> Option<i32> {
-    for (ix, x) in input.iter().enumerate() {
-        for (iy, y) in input.iter().enumerate() {
-            if iy == ix || x + y > 2020 {
-                continue;
-            }
-            for (iz, z) in input.iter().enumerate() {
-                if iz == ix || iz == iy {
-                    continue;
-                }
-                if x + y + z == 2020 {
-                    return Some(x * y * z);
-                }
-            }
-        }
-    }
-
-    None
+    return input
+        .iter()
+        .cartesian_product(input)
+        .cartesian_product(input)
+        .find(|((i, j), k)| *i + *j + *k == 2020)
+        .map(|((i, j), k)| i * j * k);
 }
 
 fn main() -> Result<()> {

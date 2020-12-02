@@ -3,8 +3,10 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 use anyhow::{Context, Result};
+use parse_display::{Display, FromStr};
 
-#[derive(Debug)]
+#[derive(Debug, FromStr, Display)]
+#[display("{start}-{end} {req}: {password}")]
 struct PasswordRow {
     start: usize,
     end: usize,
@@ -24,17 +26,6 @@ impl PasswordRow {
         let present_pos_2 = self.password.chars().nth(self.end - 1) == Some(self.req);
         present_pos_1 ^ present_pos_2
     }
-
-    fn parse(line: &str) -> Result<PasswordRow> {
-        let re = Regex::new(r"^(\d+)-(\d+) ([a-z]): ([a-z]+)$").unwrap();
-        let caps = re.captures(&line).context("failed to capture regex")?;
-        Ok(PasswordRow {
-            start: caps[1].parse::<usize>()?,
-            end: caps[2].parse::<usize>()?,
-            req: caps[3].chars().next().context("failed to parse")?,
-            password: caps[4].to_owned(),
-        })
-    }
 }
 
 fn read_input() -> Result<Vec<PasswordRow>> {
@@ -43,10 +34,7 @@ fn read_input() -> Result<Vec<PasswordRow>> {
 
     buffered
         .lines()
-        .map(|line| {
-            let line = line?;
-            PasswordRow::parse(&line)
-        })
+        .map(|line| Ok(line?.parse::<PasswordRow>()?))
         .collect()
 }
 

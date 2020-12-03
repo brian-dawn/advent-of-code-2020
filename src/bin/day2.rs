@@ -1,8 +1,8 @@
-use regex::Regex;
+
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-use anyhow::{Context, Result};
+use anyhow::{Result};
 use parse_display::{Display, FromStr};
 
 #[derive(Debug, FromStr, Display)]

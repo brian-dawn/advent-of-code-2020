@@ -1,14 +1,12 @@
-use regex::Regex;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-use anyhow::{bail, Context, Result};
-use parse_display::{Display, FromStr};
+use anyhow::{bail, Result};
 
 #[derive(Clone, Debug, Copy, PartialEq)]
 enum Square {
-    open,
-    tree,
+    Open,
+    Tree,
 }
 
 #[derive(Debug)]
@@ -36,8 +34,8 @@ fn read_input() -> Result<World> {
         width = line.len();
         for c in line.chars() {
             match c {
-                '.' => data.push(Square::open),
-                '#' => data.push(Square::tree),
+                '.' => data.push(Square::Open),
+                '#' => data.push(Square::Tree),
                 _ => {
                     bail!("Unrecognized character {}", c);
                 }
@@ -53,7 +51,7 @@ fn num_trees(world: &World, dx: usize, dy: usize) -> usize {
 
     walk.map(|(x, y)| world.at(x, y))
         .take_while(|square| square.is_some())
-        .filter(|square| *square == Some(Square::tree))
+        .filter(|square| *square == Some(Square::Tree))
         .count()
 }
 

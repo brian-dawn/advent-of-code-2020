@@ -49,19 +49,9 @@ fn read_input() -> Result<World> {
 }
 
 fn num_trees(world: &World, dx: usize, dy: usize) -> usize {
-    let mut x = 0;
-    let mut y = 0;
-    let slope = std::iter::repeat_with(|| {
-        let tx = x;
-        x += dx;
+    let walk = std::iter::successors(Some((0, 0)), |(x, y)| Some((x + dx, y + dy)));
 
-        let ty = y;
-        y += dy;
-        (tx, ty)
-    });
-
-    slope
-        .map(|(x, y)| world.at(x, y))
+    walk.map(|(x, y)| world.at(x, y))
         .take_while(|square| square.is_some())
         .filter(|square| *square == Some(Square::tree))
         .count()

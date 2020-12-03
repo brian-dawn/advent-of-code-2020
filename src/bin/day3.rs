@@ -61,10 +61,7 @@ fn num_trees(world: &World, dx: usize, dy: usize) -> usize {
     });
 
     slope
-        .map(|(x, y)| {
-            //
-            world.at(x, y)
-        })
+        .map(|(x, y)| world.at(x, y))
         .take_while(|square| square.is_some())
         .filter(|square| *square == Some(Square::tree))
         .count()

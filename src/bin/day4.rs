@@ -5,6 +5,7 @@ use std::{fs::File, io::Read};
 
 use anyhow::{bail, Context, Result};
 
+use itertools::Itertools;
 use regex::Regex;
 
 fn read_input() -> Result<Vec<String>> {
@@ -24,11 +25,8 @@ fn as_maps<'a>(passports: &'a [String]) -> Vec<HashMap<&'a str, &'a str>> {
         .iter()
         .map(|p| {
             p.split_whitespace()
-                .map(|e| {
-                    let mut parts = e.split(":");
-                    Some((parts.next()?, parts.next()?))
-                })
-                .filter_map(|x| x)
+                .flat_map(|e| e.split(":"))
+                .tuples()
                 .collect::<HashMap<_, _>>()
         })
         .collect()

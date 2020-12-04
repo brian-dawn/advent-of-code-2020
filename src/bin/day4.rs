@@ -91,10 +91,7 @@ fn validate(passport: &HashMap<&str, &str>) -> Result<()> {
     }
 
     let ecl = passport.get("ecl").context("no ecl")?;
-    let valid_ecls = vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-        .into_iter()
-        .collect::<HashSet<_>>();
-    if !valid_ecls.contains(ecl) {
+    if !["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].contains(ecl) {
         bail!("invalid ecl {}", ecl)
     }
 

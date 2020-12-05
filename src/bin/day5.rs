@@ -12,14 +12,14 @@ fn read_input() -> Result<Vec<String>> {
     buffered.lines().map(|l| Ok(l?)).collect()
 }
 
-fn seat_id(pass: &str) -> Option<i64> {
+fn seat_id(pass: &str) -> Option<u16> {
     let bin_string = pass
         .replace("F", "0")
         .replace("B", "1")
         .replace("L", "0")
         .replace("R", "1");
 
-    i64::from_str_radix(&bin_string, 2).ok()
+    u16::from_str_radix(&bin_string, 2).ok()
 }
 
 fn main() -> Result<()> {

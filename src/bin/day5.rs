@@ -37,7 +37,7 @@ fn main() -> Result<()> {
         .iter()
         .filter_map(|pass| seat_id(pass))
         .sorted()
-        .tuple_windows::<(_, _)>()
+        .tuple_windows()
         .find(|(a, b)| a + 1 != *b)
         .context("failed to find our seat!")?
         .0

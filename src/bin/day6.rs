@@ -34,7 +34,6 @@ where
                 .map(|line| line.chars().collect::<HashSet<_>>())
                 .collect_vec();
 
-            println!("");
             // fold_first can't come soon enough! :(
             let init = char_set.first().unwrap_or(&HashSet::new()).clone();
             char_set

@@ -4,7 +4,7 @@ use std::{fs::File, io::Read};
 
 use anyhow::Result;
 
-use itertools::Itertools;
+
 
 fn read_input() -> Result<Vec<Vec<String>>> {
     let mut input = File::open("input/day6.txt")?;

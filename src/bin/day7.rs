@@ -5,12 +5,12 @@ use std::{
     collections::{HashMap, HashSet},
     io::{BufRead, BufReader},
 };
-use std::{fs::File, io::Read};
+use std::{fs::File};
 
-use anyhow::{bail, Result};
+use anyhow::{Result};
 use regex::Regex;
 
-use itertools::Itertools;
+
 
 type MapBag = HashMap<String, Vec<(u64, String)>>;
 

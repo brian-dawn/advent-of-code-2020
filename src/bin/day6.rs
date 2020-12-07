@@ -1,3 +1,4 @@
+#![feature(iterator_fold_self)]
 use std::collections::HashSet;
 use std::{fs::File, io::Read};
 
@@ -29,16 +30,11 @@ where
     groups
         .iter()
         .map(|group| {
-            let char_set = group
+            group
                 .iter()
                 .map(|line| line.chars().collect::<HashSet<_>>())
-                .collect_vec();
-
-            // fold_first can't come soon enough! :(
-            let init = char_set.first().unwrap_or(&HashSet::new()).clone();
-            char_set
-                .iter()
-                .fold(init, |acc, val| combine_fn(&acc, &val))
+                .fold_first(|acc, val| combine_fn(&acc, &val))
+                .unwrap()
                 .len()
         })
         .sum()

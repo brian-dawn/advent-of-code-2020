@@ -3,9 +3,7 @@ use std::io::{BufRead, BufReader};
 use std::{convert::TryInto, fs::File};
 
 use anyhow::{Context, Result};
-use parse_display::{FromStr};
-
-
+use parse_display::FromStr;
 
 #[derive(FromStr, PartialEq, Debug, Clone, Copy)]
 enum Instruction {

@@ -1,9 +1,9 @@
 use itertools::Itertools;
 use std::{
-    collections::{HashMap, HashSet},
+    collections::{HashMap},
     io::{BufRead, BufReader},
 };
-use std::{fs::File, thread::current};
+use std::{fs::File};
 
 use anyhow::{Context, Result};
 

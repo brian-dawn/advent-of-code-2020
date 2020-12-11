@@ -31,35 +31,6 @@ fn part1(input: &[i64]) -> i64 {
     ones * threes
 }
 
-// Wow so bad
-// fn walk(joltage: i64, rest: &[i64], mut current_path: &mut Vec<i64>) -> Vec<Vec<i64>> {
-
-//     let possibilities = rest
-//         .iter()
-//         .take_while(|a| *a - joltage <= 3)
-//         .collect::<Vec<_>>();
-
-//     // if we're empty that's it.
-//     if possibilities.is_empty() {
-//         // We reached the end.
-//         // return current_path
-//         return vec![current_path.to_vec()];
-//     } else {
-//         // Recursive call => flatten children.
-//         let pathsplosion = possibilities.iter().flat_map(|j| {
-//             // need rest here
-//             let r = rest
-//                 .iter()
-//                 .skip_while(|a| *a <= *j)
-//                 .copied()
-//                 .collect::<Vec<_>>();
-//             current_path.push(**j);
-//             walk(**j, &r, &mut current_path)
-//         });
-//         pathsplosion.collect()
-//     }
-// }
-
 fn part2(input: &[i64]) -> Option<i64> {
     let mut sorted = input.iter().sorted().copied().collect::<Vec<_>>();
     sorted.push(3 + sorted.last().unwrap_or(&0));
